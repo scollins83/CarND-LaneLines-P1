@@ -10,10 +10,7 @@ The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road
 * Reflect on your work in a written report
 
-
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
+[grey_image]: ./test_image_output/grey_solidYellowLeft.jpg "Grayscale"
 
 ---
 
@@ -21,7 +18,8 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 The pipeline for processing the images to identify lane lines consists of six steps:  
-* **Grayscale**: Conversion of the input image from color to gray tones.
+* **Grayscale**: Conversion of the input image from color to gray tones.  
+![Grayscale Image][grey_image]
 * **Canny Edge Detection**: The grayscale image is then taken and run through OpenCV's Canny edge detection algorithm.
 * **Gaussian Blur**: Gaussian blur is then applied to the canny edge-detected image.
 * **Masking - Region of Interest**: A mask is applied over all but a triangle shape in the lowest portion of the Gaussian-blurred image. 
@@ -32,11 +30,6 @@ In the first portion of the project, I simply left the initial drawLines() funct
 In order to draw a solid line on the image over the dashed lane line and eliminate extraneous lines with slopes that were not within the range of angles typically found in the lane lines, and also calculated the intercept for each line segment. From there, added the line point list and individual x or y list for the left lane if the slope was less than the negation of a slope threshold parameter, and to lists for the right lane if the slope was greater than the slope threshold parameter.  
 Next, I fit all the x and y points to lines for both the left and right lane line using the np.polyfit function, calling the slope and intercept both 1 if the lines did not exist (this was necessary for some image frames in the video segment where edges were not adequately detected to form the lane line.  
 After that, I found the 'y' values for the endpoints for both lane lines, since they were going to be the same, thus resulting in the lines being of even length. I also shortened the lines a bit so they didn't collide with one another. From there, I extrapolated the lines by subtracting the intercepts from the y values for each line, and then dividing that calculation by the slope for each respective line.  Lastly, both the left and right lines were drawn in the same fashion as they were in the original function. 
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
-
 
 ### 2. Identify potential shortcomings with your current pipeline
 
