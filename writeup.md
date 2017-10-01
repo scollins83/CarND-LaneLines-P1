@@ -66,6 +66,8 @@ Also, wet roadways that are highly reflective, and roadways covered with snow or
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+There are many possible ways to improve this algorithm. One way would be to automatically detect the left and right lane lines by way of detecting them as parallel lines by their angle, in ways that may eliminate the need for the masking portion of the algorithm.  
+  
+Another potential way to improve the algorithm would be to work with different polygons between the lane lines in order to help the car better handle curves.  
+  
+Yet another improvement may be to include a function that essentially 'scans' the horizon, anticipating anomalies that may occur in the future and giving the car time to react to them. Humans are encouraged to do this while learning to drive, and since stopping time, turns and other considerations are important given the physical constraints of a moving vehicle, it would be a necessary component to include in an autonomous vehicle. 
