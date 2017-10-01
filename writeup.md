@@ -16,6 +16,8 @@ The goals / steps of this project are the following:
 [masked_image]: ./test_image_output/masked_solidYellowLeft.jpg "Masked"
 [hough_image]: ./test_image_output/hough_solidYellowLeft.jpg "Hough"
 [weighted_image]: ./test_image_output/weighted_solidYellowLeft.jpg "Weighted"
+[hough_beta]: ./test_image_output/hough_beta_solidYellowLeft.jpg "HoughBeta"
+[weighted_beta]: ./test_image_output/weighted_beta_solidYellowLeft.jpg "WeightedBeta"
 
 ---
 
@@ -37,9 +39,20 @@ The pipeline for processing the images to identify lane lines consists of six st
 ![Weighted Lines Image][weighted_image]
 
 In the first portion of the project, I simply left the initial drawLines() function as it was to draw out all line segments returned from the Hough lines function. However, while this identified line segments quite well, it did not provide a solid line over a dashed lane line, and as it was, also kept all line segments regardless of their slope, including some horizontal line segments at both the horizon and in the reflection of the windshield.  
+  
 In order to draw a solid line on the image over the dashed lane line and eliminate extraneous lines with slopes that were not within the range of angles typically found in the lane lines, and also calculated the intercept for each line segment. From there, added the line point list and individual x or y list for the left lane if the slope was less than the negation of a slope threshold parameter, and to lists for the right lane if the slope was greater than the slope threshold parameter.  
 Next, I fit all the x and y points to lines for both the left and right lane line using the np.polyfit function, calling the slope and intercept both 1 if the lines did not exist (this was necessary for some image frames in the video segment where edges were not adequately detected to form the lane line.  
-After that, I found the 'y' values for the endpoints for both lane lines, since they were going to be the same, thus resulting in the lines being of even length. I also shortened the lines a bit so they didn't collide with one another. From there, I extrapolated the lines by subtracting the intercepts from the y values for each line, and then dividing that calculation by the slope for each respective line.  Lastly, both the left and right lines were drawn in the same fashion as they were in the original function. 
+  
+After that, I found the 'y' values for the endpoints for both lane lines, since they were going to be the same, thus resulting in the lines being of even length. I also shortened the lines a bit so they didn't collide with one another. From there, I extrapolated the lines by subtracting the intercepts from the y values for each line, and then dividing that calculation by the slope for each respective line.  Lastly, both the left and right lines were drawn in the same fashion as they were in the original function.  
+   
+After that, I found the 'y' values for the endpoints for both lane lines, since they were going to be the same, thus resulting in the lines being of even length. I also shortened the lines a bit so they didn't collide with one another. From there, I extrapolated the lines by subtracting the intercepts from the y values for each line, and then dividing that calculation by the slope for each respective line.  Lastly, both the left and right lines were drawn in the same fashion as they were in the original function.  
+  
+Here is what the revised Hough lines and weighted image look like:  
+**Hough Lines:**   
+![Hough Beta][hough_beta]  
+**Weighted Lines on Image:**  
+![Weighted Beta][weighted_beta] 
+
 
 ### 2. Identify potential shortcomings with your current pipeline
 
