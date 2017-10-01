@@ -11,6 +11,11 @@ The goals / steps of this project are the following:
 * Reflect on your work in a written report
 
 [grey_image]: ./test_image_output/grey_solidYellowLeft.jpg "Grayscale"
+[canny_image]: ./test_image_output/canny_solidYellowLeft.jpg "Canny"
+[gauss_image]: ./test_image_output/blurred_solidYellowLeft.jpg "Gaussian Blur"
+[masked_image]: ./test_image_output/masked_solidYellowLeft.jpg "Masked"
+[hough_image]: ./test_image_output/hough_solidYellowLeft.jpg "Hough"
+[weighted_image]: ./test_image_output/weighted_solidYellowLeft.jpg "Weighted"
 
 ---
 
@@ -20,11 +25,16 @@ The goals / steps of this project are the following:
 The pipeline for processing the images to identify lane lines consists of six steps:  
 * **Grayscale**: Conversion of the input image from color to gray tones.  
 ![Grayscale Image][grey_image]
-* **Canny Edge Detection**: The grayscale image is then taken and run through OpenCV's Canny edge detection algorithm.
-* **Gaussian Blur**: Gaussian blur is then applied to the canny edge-detected image.
-* **Masking - Region of Interest**: A mask is applied over all but a triangle shape in the lowest portion of the Gaussian-blurred image. 
-* **Hough Lines**: Finds primary lines for drawing lane lines. 
-* **Weighted Lines**: Weighting lane lines so they show up thicker on the image. 
+* **Canny Edge Detection**: The grayscale image is then taken and run through OpenCV's Canny edge detection algorithm.  
+![Canny Image][canny_image]
+* **Gaussian Blur**: Gaussian blur is then applied to the canny edge-detected image.  
+![Gaussian_Blur_Image][gauss_image]
+* **Masking - Region of Interest**: A mask is applied over all but a triangle shape in the lowest portion of the Gaussian-blurred image.  
+![Masked Image][masked_image]
+* **Hough Lines**: Finds primary lines for drawing lane lines.  
+![Hough_Image][hough_image]
+* **Weighted Lines**: Weighting lane lines so they show up thicker on the image.  
+![Weighted Lines Image][weighted_image]
 
 In the first portion of the project, I simply left the initial drawLines() function as it was to draw out all line segments returned from the Hough lines function. However, while this identified line segments quite well, it did not provide a solid line over a dashed lane line, and as it was, also kept all line segments regardless of their slope, including some horizontal line segments at both the horizon and in the reflection of the windshield.  
 In order to draw a solid line on the image over the dashed lane line and eliminate extraneous lines with slopes that were not within the range of angles typically found in the lane lines, and also calculated the intercept for each line segment. From there, added the line point list and individual x or y list for the left lane if the slope was less than the negation of a slope threshold parameter, and to lists for the right lane if the slope was greater than the slope threshold parameter.  
